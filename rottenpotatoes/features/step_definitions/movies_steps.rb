@@ -11,6 +11,11 @@ Then /I should see "(.*)" before "(.*)"/ do |e1, e2|
   expect(page.body.index(e1) < page.body.index(e2))
 end
 
+
+Then /the director of "([^"]*)" should be "([^"]*)"$/ do |movie, director|
+  expect(Movie.find_by_title(movie)[:director]).to eq("#{director}")
+end
+
 When /I (un)?check the following ratings: (.*)/ do |uncheck, rating_list|
   rating_list.split(', ').each do |rating|
     step %{I #{uncheck.nil? ? '' : 'un'}check "ratings_#{rating}"}
@@ -21,5 +26,6 @@ Then /I should see all the movies/ do
   # Make sure that all the movies in the app are visible in the table
   Movie.all.each do |movie|
     step %{I should see "#{movie.title}"}
-  end
+end
+
 end

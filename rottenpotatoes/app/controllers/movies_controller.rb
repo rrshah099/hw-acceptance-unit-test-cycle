@@ -5,6 +5,18 @@ class MoviesController < ApplicationController
     @movie = Movie.find(id) # look up movie by unique ID
     # will render app/views/movies/show.<extension> by default
   end
+  
+  def find_same_director
+    @movie = Movie.find(params[:id])
+    @director = @movie.director
+    if @movie.nil? || @director.empty?
+      flash[:notice] = "'#{@movie.title}' has no director info"
+      redirect_to movies_path
+      return
+    end
+    @movies = Movie.same_director(params[:id])
+    
+end
 
   def index
     @movies = Movie.all
@@ -37,6 +49,9 @@ class MoviesController < ApplicationController
     flash[:notice] = "Movie '#{@movie.title}' deleted."
     redirect_to movies_path
   end
+  
+  
+    
 
   private
   # Making "internal" methods private is not required, but is a common practice.

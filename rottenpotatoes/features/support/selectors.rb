@@ -3,6 +3,7 @@
 # This file is used by web_steps.rb, which you should also delete
 #
 # You have been warned
+
 module HtmlSelectorsHelpers
   # Maps a name to a selector. Used primarily by the
   #

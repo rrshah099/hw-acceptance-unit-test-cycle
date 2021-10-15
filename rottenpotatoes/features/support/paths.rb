@@ -3,6 +3,7 @@
 # This file is used by web_steps.rb, which you should also delete
 #
 # You have been warned
+
 module NavigationHelpers
   # Maps a name to a path. Used by the
   #
@@ -23,6 +24,13 @@ module NavigationHelpers
    
     when /^the edit page for "([^"]+)"$/
       edit_movie_path(Movie.find_by_title($1).id)
+    
+   when /^the Similar Movies page for "([^"]+)"$/
+      movies_find_same_director_path(@Movie.find_by_title($1).id)
+    
+   when /^the details page for "([^"]+)"$/
+      movie_path(Movie.find_by_title($1).id)
+
       
     
     else
